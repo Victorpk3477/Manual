@@ -1,0 +1,38 @@
+body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
+
+header { background-color: #2e8b57; color: white; padding: 1rem; text-align: center; }
+
+header h1 { margin: 0; font-size: 1.8rem; }
+
+nav { margin-top: 0.5rem; }
+
+nav a { color: white; text-decoration: none; margin: 0 1rem; font-weight: bold; }
+
+main { padding: 1rem; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+
+.card { background-color: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 1rem; text-align: center; }
+
+.card img { width: 100%; max-height: 150px; object-fit: contain; margin-bottom: 0.5rem; }
+
+.card h3 { margin: 0.5rem 0; }
+
+.card p { margin: 0; color: #555; }
+
+.card span { font-weight: bold; display: block; margin: 0.5rem 0; }
+
+.card button { background-color: #2e8b57; color: white; border: none; padding: 0.5rem; width: 100%; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+
+.card button:hover { background-color: #256d45; }
+
+footer { background-color: #2e8b57; color: white; text-align: center; padding: 1rem; margin-top: 2rem; }
+
+input, select, button { font-family: inherit; font-size: 1rem; box-sizing: border-box; }
+
+form input, form select { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+
+form button { width: 100%; background-color: #007acc; color: white; border: none; padding: 0.75rem; border-radius: 4px; cursor: pointer; }
+
+form button:hover { background-color: #005fa3; }
+
