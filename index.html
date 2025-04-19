@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casa de Ração Atlântico</title>
   <style>
     body {
@@ -59,57 +58,37 @@
       width: 100%;
       border-radius: 4px;
     }
-    #carrinho {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-      padding: 1rem;
-      display: none;
-      z-index: 1000;
+    .finalizar {
+      text-align: center;
+      margin: 2rem;
     }
-    #carrinho.show {
-      display: block;
-    }
-    #carrinho button {
+    .finalizar a button {
       background: #25d366;
       color: white;
-      padding: 1rem;
-      width: 100%;
-      border: none;
+      padding: 1rem 2rem;
       font-size: 1rem;
+      border: none;
       border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>Casa de Ração Atlântico</header>
-
-  <div class="filtros">
+  <header>Casa de Ração Atlântico</header>  <div class="filtros">
     <button onclick="filtrar('todos')">Todos</button>
     <button onclick="filtrar('Cachorro')">Cachorros</button>
     <button onclick="filtrar('Gato')">Gatos</button>
     <button onclick="filtrar('Peixe')">Peixes</button>
     <button onclick="filtrar('Pássaro')">Pássaros</button>
-  </div>
-
-  <div class="produtos" id="lista-produtos"></div>
-
-  <div id="carrinho">
-    <form onsubmit="enviarWhatsApp(event)">
-      <input type="text" id="nome" placeholder="Seu nome" required style="width:100%; margin-bottom:0.5rem; padding:0.5rem;" />
-      <input type="text" id="endereco" placeholder="Seu endereço" required style="width:100%; margin-bottom:0.5rem; padding:0.5rem;" />
-      <button type="submit">Enviar pedido no WhatsApp</button>
-    </form>
-  </div>
-
-  <script>
+  </div>  <div class="produtos" id="lista-produtos"></div>  <div class="finalizar">
+    <a href="carrinho.html">
+      <button>Finalizar Pedido</button>
+    </a>
+  </div>  <script>
     const produtos = [
       { nome: 'Ração Premium', especie: 'Cachorro', preco: 89.90, imagem: 'https://via.placeholder.com/150' },
       { nome: 'Brinquedo Gato', especie: 'Gato', preco: 25.50, imagem: 'https://via.placeholder.com/150' },
-      { nome: 'Comida Peixe', especie: 'Peixe', preco: 12.00, imagem: 'https://via.placeholder.com/150' },
+      { nome: 'Comida Peixe', especie: 'Peixe', preco: 12.00, imagem: 'https://via.placeholder.com/150' }
     ];
 
     let carrinho = [];
@@ -130,18 +109,8 @@
 
     function adicionarCarrinho(i) {
       carrinho.push(produtos[i]);
-      document.getElementById('carrinho').classList.add('show');
-    }
-
-    function enviarWhatsApp(e) {
-      e.preventDefault();
-      const nome = document.getElementById('nome').value;
-      const endereco = document.getElementById('endereco').value;
-      let mensagem = `*Pedido via site*%0ACliente: ${nome}%0AEndereço: ${endereco}%0A%0A*Itens:*%0A`;
-      carrinho.forEach(p => {
-        mensagem += `- ${p.nome} (R$ ${p.preco.toFixed(2)})%0A`;
-      });
-      window.open(`https://wa.me/5562993091155?text=${mensagem}`, '_blank');
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      alert("Produto adicionado ao carrinho.");
     }
 
     function filtrar(tipo) {
@@ -151,6 +120,5 @@
     }
 
     renderizar(produtos);
-  </script>
-</body>
+  </script></body>
 </html>
