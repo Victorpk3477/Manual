@@ -2,123 +2,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casa de Ração Atlântico</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #f7f9fa;
-    }
-    header {
-      background: #2e8b57;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-    }
-    .filtros {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 1rem;
-    }
-    .filtros button {
-      background: #007acc;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .produtos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-    }
-    .produto {
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
-      padding: 0.5rem;
-    }
-    .produto img {
-      width: 100%;
-      height: 100px;
-      object-fit: contain;
-    }
-    .produto button {
-      background: #2e8b57;
-      color: white;
-      border: none;
-      margin-top: 0.5rem;
-      padding: 0.4rem;
-      width: 100%;
-      border-radius: 4px;
-    }
-    .finalizar {
-      text-align: center;
-      margin: 2rem;
-    }
-    .finalizar a button {
-      background: #25d366;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  </style>
+  <title>Casa de Ração Atlântico - Início</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>Casa de Ração Atlântico</header>  <div class="filtros">
-    <button onclick="filtrar('todos')">Todos</button>
-    <button onclick="filtrar('Cachorro')">Cachorros</button>
-    <button onclick="filtrar('Gato')">Gatos</button>
-    <button onclick="filtrar('Peixe')">Peixes</button>
-    <button onclick="filtrar('Pássaro')">Pássaros</button>
-  </div>  <div class="produtos" id="lista-produtos"></div>  <div class="finalizar">
-    <a href="carrinho.html">
-      <button>Finalizar Pedido</button>
-    </a>
-  </div>  <script>
-    const produtos = [
-      { nome: 'Ração Premium', especie: 'Cachorro', preco: 89.90, imagem: 'https://via.placeholder.com/150' },
-      { nome: 'Brinquedo Gato', especie: 'Gato', preco: 25.50, imagem: 'https://via.placeholder.com/150' },
-      { nome: 'Comida Peixe', especie: 'Peixe', preco: 12.00, imagem: 'https://via.placeholder.com/150' }
-    ];
-
-    let carrinho = [];
-
-    function renderizar(lista) {
-      const container = document.getElementById('lista-produtos');
-      container.innerHTML = '';
-      lista.forEach((p, i) => {
-        container.innerHTML += `
-          <div class='produto'>
-            <img src='${p.imagem}' />
-            <h4>${p.nome}</h4>
-            <p>${p.especie} - R$ ${p.preco.toFixed(2)}</p>
-            <button onclick='adicionarCarrinho(${i})'>Adicionar</button>
-          </div>`;
-      });
-    }
-
-    function adicionarCarrinho(i) {
-      carrinho.push(produtos[i]);
-      localStorage.setItem("carrinho", JSON.stringify(carrinho));
-      alert("Produto adicionado ao carrinho.");
-    }
-
-    function filtrar(tipo) {
-      if (tipo === 'todos') return renderizar(produtos);
-      const filtrados = produtos.filter(p => p.especie === tipo);
-      renderizar(filtrados);
-    }
-
-    renderizar(produtos);
-  </script></body>
+  <header>
+    <h1>Casa de Ração Atlântico</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="produtos.html">Produtos</a>
+      <a href="carrinho.html">Carrinho</a>
+    </nav>
+  </header>  <main>
+    <section class="destaques">
+      <h2>Produtos em Destaque</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://via.placeholder.com/150" alt="Produto 1">
+          <h3>Ração Premium</h3>
+          <p>Para Cachorros</p>
+          <span>R$ 89,90</span>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/150" alt="Produto 2">
+          <h3>Brinquedo para Gatos</h3>
+          <p>Para Gatos</p>
+          <span>R$ 24,90</span>
+        </div>
+      </div>
+    </section>
+  </main>  <footer>
+    <p>&copy; 2024 Casa de Ração Atlântico</p>
+    <p>Endereço: Rua Exemplo, 123 - Cidade</p>
+    <p>WhatsApp: (62) 99309-1155</p>
+    <p>Horário: Seg-Sáb 8h às 18h</p>
+  </footer>
+</body>
 </html>
