@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administração - Casa de Ração Atlântico</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 2rem;
+    }
+    .login, .painel {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #2e8b57;
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      width: 100%;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .painel { display: none; }
+  </style>
+</head>
+<body>
+  <div class="login" id="login">
+    <h2>Login Administrador</h2>
+    <input type="text" id="usuario" placeholder="Usuário" />
+    <input type="password" id="senha" placeholder="Senha" />
+    <button onclick="fazerLogin()">Entrar</button>
+  </div>  <div class="painel" id="painel">
+    <h2>Editar Produtos</h2>
+    <form id="form-produto">
+      <input type="text" id="nome-produto" placeholder="Nome do Produto" required />
+      <input type="text" id="imagem" placeholder="URL da Imagem" required />
+      <input type="number" id="preco" placeholder="Preço" required />
+      <input type="text" id="tipo" placeholder="Tipo (ração, brinquedo...)" required />
+      <input type="text" id="especie" placeholder="Espécie (gato, cachorro...)" required />
+      <button type="submit">Salvar Produto</button>
+    </form><h2>Informações da Loja</h2>
+<form id="form-loja">
+  <input type="text" id="endereco" placeholder="Endereço da Loja" required />
+  <input type="text" id="whatsapp" placeholder="Número do WhatsApp" required />
+  <input type="text" id="horario" placeholder="Horário de Funcionamento" required />
+  <button type="submit">Salvar Informações</button>
+</form>
+
+  </div>  <script>
+    const USUARIO_PADRAO = "admin";
+    const SENHA_PADRAO = "admin123";
+
+    function fazerLogin() {
+      const user = document.getElementById("usuario").value;
+      const pass = document.getElementById("senha").value;
+      if (user === USUARIO_PADRAO && pass === SENHA_PADRAO) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("painel").style.display = "block";
+        carregarDados();
+      } else {
+        alert("Usuário ou senha incorretos.");
+      }
+    }
+
+    document.getElementById("form-produto").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const produto = {
+        nome: document.getElementById("nome-produto").value,
+        imagem: document.getElementById("imagem").value,
+        preco: parseFloat(document.getElementById("preco").value),
+        tipo: document.getElementById("tipo").value,
+        especie: document.getElementById("especie").value
+      };
+      const lista = JSON.parse(localStorage.getItem("produtosAdmin") || "[]");
+      lista.push(produto);
+      localStorage.setItem("produtosAdmin", JSON.stringify(lista));
+      alert("Produto salvo!");
+      this.reset();
+    });
+
+    document.getElementById("form-loja").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const info = {
+        endereco: document.getElementById("endereco").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        horario: document.getElementById("horario").value
+      };
+      localStorage.setItem("infoLoja", JSON.stringify(info));
+      alert("Informações da loja atualizadas!");
+    });
+
+    function carregarDados() {
+      const info = JSON.parse(localStorage.getItem("infoLoja"));
+      if (info) {
+        document.getElementById("endereco").value = info.endereco || "";
+        document.getElementById("whatsapp").value = info.whatsapp || "";
+        document.getElementById("horario").value = info.horario || "";
+      }
+    }
+  </script></body>
+</html>
