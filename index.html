@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Casa de Ração Atlântico</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f7f9fa;
+    }
+    header {
+      background: #2e8b57;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    .filtros {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem;
+    }
+    .filtros button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .produto {
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 0.5rem;
+    }
+    .produto img {
+      width: 100%;
+      height: 100px;
+      object-fit: contain;
+    }
+    .produto button {
+      background: #2e8b57;
+      color: white;
+      border: none;
+      margin-top: 0.5rem;
+      padding: 0.4rem;
+      width: 100%;
+      border-radius: 4px;
+    }
+    #carrinho {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+      padding: 1rem;
+      display: none;
+      z-index: 1000;
+    }
+    #carrinho.show {
+      display: block;
+    }
+    #carrinho button {
+      background: #25d366;
+      color: white;
+      padding: 1rem;
+      width: 100%;
+      border: none;
+      font-size: 1rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>Casa de Ração Atlântico</header>
+
+  <div class="filtros">
+    <button onclick="filtrar('todos')">Todos</button>
+    <button onclick="filtrar('Cachorro')">Cachorros</button>
+    <button onclick="filtrar('Gato')">Gatos</button>
+    <button onclick="filtrar('Peixe')">Peixes</button>
+    <button onclick="filtrar('Pássaro')">Pássaros</button>
+  </div>
+
+  <div class="produtos" id="lista-produtos"></div>
+
+  <div id="carrinho">
+    <form onsubmit="enviarWhatsApp(event)">
+      <input type="text" id="nome" placeholder="Seu nome" required style="width:100%; margin-bottom:0.5rem; padding:0.5rem;" />
+      <input type="text" id="endereco" placeholder="Seu endereço" required style="width:100%; margin-bottom:0.5rem; padding:0.5rem;" />
+      <button type="submit">Enviar pedido no WhatsApp</button>
+    </form>
+  </div>
+
+  <script>
+    const produtos = [
+      { nome: 'Ração Premium', especie: 'Cachorro', preco: 89.90, imagem: 'https://via.placeholder.com/150' },
+      { nome: 'Brinquedo Gato', especie: 'Gato', preco: 25.50, imagem: 'https://via.placeholder.com/150' },
+      { nome: 'Comida Peixe', especie: 'Peixe', preco: 12.00, imagem: 'https://via.placeholder.com/150' },
+    ];
+
+    let carrinho = [];
+
+    function renderizar(lista) {
+      const container = document.getElementById('lista-produtos');
+      container.innerHTML = '';
+      lista.forEach((p, i) => {
+        container.innerHTML += `
+          <div class='produto'>
+            <img src='${p.imagem}' />
+            <h4>${p.nome}</h4>
+            <p>${p.especie} - R$ ${p.preco.toFixed(2)}</p>
+            <button onclick='adicionarCarrinho(${i})'>Adicionar</button>
+          </div>`;
+      });
+    }
+
+    function adicionarCarrinho(i) {
+      carrinho.push(produtos[i]);
+      document.getElementById('carrinho').classList.add('show');
+    }
+
+    function enviarWhatsApp(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const endereco = document.getElementById('endereco').value;
+      let mensagem = `*Pedido via site*%0ACliente: ${nome}%0AEndereço: ${endereco}%0A%0A*Itens:*%0A`;
+      carrinho.forEach(p => {
+        mensagem += `- ${p.nome} (R$ ${p.preco.toFixed(2)})%0A`;
+      });
+      window.open(`https://wa.me/5562993091155?text=${mensagem}`, '_blank');
+    }
+
+    function filtrar(tipo) {
+      if (tipo === 'todos') return renderizar(produtos);
+      const filtrados = produtos.filter(p => p.especie === tipo);
+      renderizar(filtrados);
+    }
+
+    renderizar(produtos);
+  </script>
+</body>
+</html>
